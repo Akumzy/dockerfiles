@@ -1,11 +1,16 @@
 #! /bin/sh
 
-# exit if a command fails
+# Exit if a command fails
 set -eo pipefail
 
-apk update
-apk add openssl aws-cli 
-apk add postgresql-client --repository=https://dl-cdn.alpinelinux.org/alpine/v3.18/main
+# Add Alpine Linux repository
+echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >>/etc/apk/repositories
 
-# cleanup
+# Update package lists
+apk update
+
+# Install necessary packages
+apk add openssl aws-cli postgresql16-client python3=3.10.14-r1
+
+# Cleanup
 rm -rf /var/cache/apk/*
